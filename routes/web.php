@@ -12,7 +12,7 @@
 */
 
 Route::get('/transactions/{category?}','transactionsController@index');
-
+Route::post('/transactions/{category?}','transactionsController@store');
 
 Route::get('/', function () {
     return view('welcome');
