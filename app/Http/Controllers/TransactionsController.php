@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class TransactionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(Category $category = null)
     {
         $transactions = Transaction::byCategory($category)->get();

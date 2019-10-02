@@ -6,7 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
-    public $fillable = ['description', 'amount', 'category_id'];
+    public $fillable = ['description', 'amount', 'category_id', 'user_id'];
+
+    public static function boot()
+    {
+        static::addGlobalScope('user', function ($query) {
+            $query->where('user_id', auth()->id());
+        });
+    }
 
     public function category()
     {
