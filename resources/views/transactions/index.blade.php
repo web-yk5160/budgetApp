@@ -1,13 +1,16 @@
 @extends('layouts/app')
 
+@section('content')
 <div class="container">
-  <div class="table-responsive">
+  <div class="panel panel-default">
+    <div class="panel-body">
+    <div class="table-responsive">
     <table class="table">
       <thead>
-        <th>date</th>
-        <th>Description</th>
-        <th>caregory</th>
-        <th>Amount</th>
+        <th>日付</th>
+        <th>内容</th>
+        <th>カテゴリ</th>
+        <th>総計</th>
       </thead>
       <tbody>
         @foreach($transactions as $transaction)
@@ -21,4 +24,7 @@
       </tbody>
     </table>
   </div>
+    </div>
+  </div>
 </div>
+@endsection
