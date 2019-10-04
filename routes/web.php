@@ -11,11 +11,13 @@
 |
 */
 
-Route::get ('/transactions/{transaction}','transactionsController@edit');
+
 Route::get('/transactions/create','transactionsController@create');
 Route::get('/transactions/{category?}','transactionsController@index');
+Route::get ('/transactions/{transaction}','transactionsController@edit');
 Route::post('/transactions','transactionsController@store');
 Route::put('/transactions/{transaction}','transactionsController@update');
+Route::delete('/transactions/{transaction}', 'transactionsController@destroy');
 
 
 Route::get('/', function () {

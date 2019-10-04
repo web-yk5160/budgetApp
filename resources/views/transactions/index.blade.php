@@ -11,6 +11,7 @@
         <th>内容</th>
         <th>カテゴリ</th>
         <th>総計</th>
+        <th>削除</th>
       </thead>
       <tbody>
         @foreach($transactions as $transaction)
@@ -19,10 +20,18 @@
           <td><a href="/transactions/{{ $transaction->id }}">{{$transaction->description}}</a></td>
           <td>{{$transaction->category->name}}</td>
           <td>{{$transaction->amount}}</td>
+          <td>
+            <form action="/transactions/{{ $transaction->id }}" method="POST">
+              {{ method_field('DELETE') }}
+              {{ csrf_field() }}
+              <button class="btn btn-danger btn-xs" type="submit">削除　</button>
+            </form>
+          </td>
         </tr>
         @endforeach
       </tbody>
     </table>
+    {{ $transactions->links() }}
   </div>
     </div>
   </div>
