@@ -19,6 +19,8 @@ Route::post('/transactions','transactionsController@store');
 Route::put('/transactions/{transaction}','transactionsController@update');
 Route::delete('/transactions/{transaction}', 'transactionsController@destroy');
 
+Route::get('/categories', 'categoriesController@index');
+
 
 Route::get('/', function () {
     return view('welcome');
