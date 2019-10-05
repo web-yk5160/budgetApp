@@ -38,6 +38,16 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/transactions">全ての取引</a></li>
                         <li><a href="/transactions/create">新しい取引</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                カテゴリー<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                @foreach(\App\Category::all() as $category)
+                                    <li><a href="/transactions/{{ $category->slug }}">{{ $category->name }}</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

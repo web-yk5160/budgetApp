@@ -3,9 +3,11 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 
 class ViewTransactionsTest extends TestCase
 {
@@ -61,5 +63,31 @@ class ViewTransactionsTest extends TestCase
         $this->get('/transactions/' . $category->slug)
             ->assertSee($transaction->description)
             ->assertDontSee($otherTransaction->description);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_filter_transactions_by_month()
+    {
+        $currentTransaction = $this->create('App\Transaction');
+        $pastTransaction = $this->create('App\Transaction', ['created_at' => Carbon::now()->subMonth(2)]);
+
+        $this->get('/transactions?month=' . Carbon::now()->subMonth(2)->format('M'))
+            ->assertSee($pastTransaction->description)
+            ->assertDontSee($currentTransaction->description);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_filter_transactions_by_current_month_by_default()
+    {
+        $currentTransaction = $this->create('App\Transaction');
+        $pastTransaction = $this->create('App\Transaction', ['created_at' => Carbon::now()->subMonth(2)]);
+
+        $this->get('/transactions')
+            ->assertSee($currentTransaction->description)
+            ->assertDontSee($pastTransaction->description);
     }
 }
