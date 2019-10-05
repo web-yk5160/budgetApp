@@ -20,6 +20,7 @@ Route::put('/transactions/{transaction}','transactionsController@update');
 Route::delete('/transactions/{transaction}', 'transactionsController@destroy');
 
 Route::get('/categories', 'categoriesController@index');
+Route::post('/categories', 'categoriesController@store');
 
 
 Route::get('/', function () {

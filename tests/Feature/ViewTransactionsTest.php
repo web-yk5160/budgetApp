@@ -16,7 +16,7 @@ class ViewTransactionsTest extends TestCase
     /**
      * @test
      */
-    public function it_allows_only_authenticated_users()
+    public function it_allows_only_authenticated_users_to_the_transactions_list()
     {
         $this->signOut()
             ->withExceptionHandling()
