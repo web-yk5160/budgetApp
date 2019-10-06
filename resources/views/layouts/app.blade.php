@@ -36,13 +36,24 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li><a href="/transactions">全ての取引</a></li>
-                        <li><a href="/transactions/create">新しい取引</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                取引<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                            <li><a href="/transactions">全ての取引</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/transactions/create">新しい取引</a></li>
+                            </ul>
+                        </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 カテゴリー<span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
+                                <li><a href="/categories">カテゴリーの管理</a></li>
+                                <li><a href="/categories/create">カテゴリーの作成</a></li>
+                                <li role="separator" class="divider"></li>
                                 @foreach(\App\Category::all() as $category)
                                     <li><a href="/transactions/{{ $category->slug }}">{{ $category->name }}</a></li>
                                 @endforeach

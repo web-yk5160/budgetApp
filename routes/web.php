@@ -12,16 +12,11 @@
 */
 
 
-Route::get('/transactions/create','transactionsController@create');
-Route::get('/transactions/{category?}','transactionsController@index');
-Route::get ('/transactions/{transaction}','transactionsController@edit');
-Route::post('/transactions','transactionsController@store');
-Route::put('/transactions/{transaction}','transactionsController@update');
-Route::delete('/transactions/{transaction}', 'transactionsController@destroy');
+Route::resource('/transactions', 'TransactionsController', ['except' => ['show'] ]);
 
-Route::get('/categories', 'categoriesController@index');
-Route::post('/categories', 'categoriesController@store');
+Route::get('/transactions/{category?}','TransactionsController@index');
 
+Route::resource('/categories', 'CategoriesController');
 
 Route::get('/', function () {
     return view('welcome');

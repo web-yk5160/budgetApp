@@ -29,8 +29,9 @@ class ViewTransactionsTest extends TestCase
      */
     public function it_only_displays_transactions_that_belongs_to_the_currently_logged_in_users()
     {
+        $category = $this->create('App\Category');
         $otherUser = create('App\User');
-        $transaction = create('App\Transaction', ['user_id' => $this->user->id]);
+        $transaction = create('App\Transaction', ['user_id' => $this->user->id, 'category_id' => $category->id]);
         $otherTransaction = create('App\Transaction', ['user_id' => $otherUser->id]);
 
         $this->get('/transactions')
@@ -44,7 +45,8 @@ class ViewTransactionsTest extends TestCase
      */
     public function it_can_display_all_transactions()
     {
-        $transaction = $this->create('App\Transaction');
+        $category = $this->create('App\Category');
+        $transaction = $this->create('App\Transaction', ['category_id' => $category->id]);
 
         $this->get('/transactions')
             ->assertSee($transaction->description)
@@ -56,7 +58,7 @@ class ViewTransactionsTest extends TestCase
      */
     public function it_can_filter_transactions_by_category()
     {
-        $category = create('App\Category');
+        $category = $this->create('App\Category');
         $transaction = $this->create('App\Transaction', ['category_id' => $category->id]);
         $otherTransaction = $this->create('App\Transaction');
 
@@ -70,8 +72,9 @@ class ViewTransactionsTest extends TestCase
      */
     public function it_can_filter_transactions_by_month()
     {
+        $category = $this->create('App\Category');
         $currentTransaction = $this->create('App\Transaction');
-        $pastTransaction = $this->create('App\Transaction', ['created_at' => Carbon::now()->subMonth(2)]);
+        $pastTransaction = $this->create('App\Transaction', ['category_id' => $category->id, 'created_at' => Carbon::now()->subMonth(2)]);
 
         $this->get('/transactions?month=' . Carbon::now()->subMonth(2)->format('M'))
             ->assertSee($pastTransaction->description)
@@ -83,7 +86,8 @@ class ViewTransactionsTest extends TestCase
      */
     public function it_can_filter_transactions_by_current_month_by_default()
     {
-        $currentTransaction = $this->create('App\Transaction');
+        $category = $this->create('App\Category');
+        $currentTransaction = $this->create('App\Transaction', ['category_id' => $category->id,]);
         $pastTransaction = $this->create('App\Transaction', ['created_at' => Carbon::now()->subMonth(2)]);
 
         $this->get('/transactions')

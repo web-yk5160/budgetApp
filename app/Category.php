@@ -18,10 +18,19 @@ class Category extends Model
             $category->user_id = $category->user_id ?: auth()->id();
             $category->slug = $category->slug ?: str_slug($category->name);
         });
+
+        static::updating(function ($category) {
+            $category->slug =  str_slug($category->name);
+        });
     }
 
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class);
     }
 }

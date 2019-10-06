@@ -38,7 +38,7 @@
       <tbody>
         @foreach($transactions as $transaction)
         <tr>
-          <td>{{ $transaction->created_at->format('m/d/Y') }}</td>
+          <td>{{$transaction->created_at->format('m/d/Y') }}</td>
           <td><a href="/transactions/{{ $transaction->id }}">{{$transaction->description}}</a></td>
           <td>{{$transaction->category->name}}</td>
           <td>{{$transaction->amount}}</td>

@@ -23,7 +23,7 @@ class TransactionsController extends Controller
             $transactionsQuery->byMonth(request('month'));
         }
         else {
-            $transactionsQuery->byMonth() ;
+            $transactionsQuery->byMonth();
         }
 
         $transactions = $transactionsQuery->paginate();
