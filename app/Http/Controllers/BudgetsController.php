@@ -77,9 +77,16 @@ class BudgetsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Budget $budget)
     {
-        //
+        $this->validate(request(), [
+            'category_id' => 'required',
+            'amount'      => 'required',
+            'budget_date' => 'required'
+        ]);
+
+        $budget->update(request()->all());
+        return redirect('/budgets');
     }
 
     /**
