@@ -11,6 +11,31 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 class ViewBudgetsTest extends TestCase
 {
     use DatabaseMigrations;
+    /**
+     * @test
+     */
+    public function it_allows_only_authenticated_users_to_the_budgets_list()
+    {
+        $this->signOut()
+            ->withExceptionHandling()
+            ->get('/budgets')
+            ->assertRedirect('/login');
+    }
+
+    /**
+     * @test
+     */
+    public function it_only_displays_budgets_that_belongs_to_the_currently_logged_in_users()
+    {
+        $category = $this->create('App\Category');
+        $otherUser = create('App\User');
+        $budget = $this->create('App\Budget', ['category_id' => $category->id]);
+        $otherBudget = create('App\Budget', ['category_id' => $category->id, 'user_id' => $otherUser->id]);
+
+        $this->get('/budgets')
+            ->assertSee((string) $budget->amount)
+            ->assertDontSee((string) $otherBudget->amount);
+    }
 
     /**
      * @test

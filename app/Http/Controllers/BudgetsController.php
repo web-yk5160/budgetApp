@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class BudgetsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -39,12 +44,13 @@ class BudgetsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $budgets = Budget::create(request()->all());
+        return redirect('/budgets');
     }
 
     /**
