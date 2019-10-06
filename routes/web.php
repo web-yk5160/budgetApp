@@ -18,6 +18,8 @@ Route::get('/transactions/{category?}','TransactionsController@index');
 
 Route::resource('/categories', 'CategoriesController');
 
+Route::resource('/budgets', 'BudgetsController');
+
 Route::get('/', function () {
     return view('welcome');
 });

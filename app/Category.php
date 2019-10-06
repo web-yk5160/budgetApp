@@ -29,8 +29,8 @@ class Category extends Model
         return 'slug';
     }
 
-    public function transaction()
+    public function transactions()
     {
-        return $this->hasOne(Transaction::class);
+        return $this->hasMany(Transaction::class, 'category_id');
     }
 }
