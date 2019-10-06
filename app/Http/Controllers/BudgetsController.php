@@ -49,7 +49,13 @@ class BudgetsController extends Controller
      */
     public function store()
     {
-        $budgets = Budget::create(request()->all());
+        $this->validate(request(), [
+            'category_id' => 'required',
+            'amount'      => 'required',
+            'budget_date' => 'required'
+        ]);
+
+        Budget::create(request()->all());
         return redirect('/budgets');
     }
 
