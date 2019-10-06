@@ -58,6 +58,6 @@ $factory->define(App\Budget::class, function (Faker\Generator $faker) {
             return create(App\User::class)->id;
         },
         'amount' => $faker->randomFloat(2, 500, 1000),
-        'budget_date' => \Carbon\Carbon::now()
+        'budget_date' => \Carbon\Carbon::now()->format('M')
     ];
 });

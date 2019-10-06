@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Budget;
+use App\Category;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -38,7 +39,25 @@ class BudgetsController extends Controller
      */
     public function create()
     {
-        //
+            $months = [
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
+                'May',
+                'Jun',
+                'Jul',
+                'Aug',
+                'Sep',
+                'Oct',
+                'Nov',
+                'Dec'
+        ];
+
+        $budget = new Budget();
+        $categories = Category::all();
+
+        return view('budgets.create', compact('months', 'budget', 'categories'));
     }
 
     /**
@@ -63,11 +82,28 @@ class BudgetsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
+     * @param  Budget  $budget
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Budget $budget)
     {
-        //
+            $months = [
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
+                'May',
+                'Jun',
+                'Jul',
+                'Aug',
+                'Sep',
+                'Oct',
+                'Nov',
+                'Dec'
+        ];
+
+        $categories = Category::all();
+        return view('budgets.edit', compact('months', 'categories', 'budget'));
     }
 
     /**
